@@ -1,0 +1,12 @@
+mqtt_host:      iot.eclipse.org
+mqtt_port:      1883
+mqtt_client_id: mqtt_rain_checker
+mqtt_use_auth:  false
+mqtt_username:  username
+mqtt_password:  password
+subscribe_topic: amesh_alert/yokohama
+publish_topic: aquestalk/0001
+rainy_pixel_threshold: 300
+rainy_alert_message: 雨が降りそうです
+start_time: 10
+end_time: 26
