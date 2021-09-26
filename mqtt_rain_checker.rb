@@ -21,7 +21,7 @@ $current_dir = Dir.pwd
 $log = Logger.new(STDOUT)
 $log.level = Logger::DEBUG
 
-$last_rainy_pixel_count = 0
+$last_is_rainy = false
 
 usage if ARGV.size == 0
 
@@ -55,7 +55,12 @@ def main_loop
       json = JSON.parse(message)
       now_count = json["rainy_pixel_count"]
 
-      if now_count != $last_rainy_pixel_count && now_count >= $conf.rainy_pixel_threshold
+      is_rainy = false
+      if now_count >= $conf.rainy_pixel_threshold
+        is_rainy = true
+      end
+
+      if $last_is_rainy != is_rainy && is_rainy == true
         $log.info "rainy_pixel count is greater than #{$conf.rainy_pixel_threshold}"
 
         h = Time.now.hour
@@ -67,7 +72,7 @@ def main_loop
         end
       end
 
-      $last_rainy_pixel_count = now_count
+      $last_is_rainy = is_rainy
     end
   end
 end
